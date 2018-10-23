@@ -35,7 +35,6 @@ char    *ft_readsdin(void)
         return (0);
     }
     str[i] = '\0';
-    ft_putstr(str);
     return (str);
 }
 
@@ -55,33 +54,36 @@ char    *ft_readfile(char *file)
     fd = open(file, O_RDONLY);
     while ((ret = read(fd, str, 2000000000)))
         str[ret] = '\0';
-    ft_putstr(str);
     return (str);
 }
 
 /*
 ** ./gen 5 10 "* o12"
+** trc is total, col and row to save lines in ft_verify function
 */
 int     main(int argc, char **argv)
 {
     int i;
     int fd;
+    int trc[3];
 
     i = 0;
-    ft_putstr("hi\n");
+    trc[0] = 0;
+    trc[1] = -1;
+    trc[2] = 0;
     if (argc > 1)
     {
-        while (++i > argc)
+        while (++i < argc)
         {
             if (i > 1)
                 ft_putchar('\n');
             fd = open(argv[i], O_RDONLY);
             fd < 0 ? (ft_putstr("MAP ERROR\n")) :
-                (ft_verify(ft_readfile(argv[i]), 0, 0, 1));
+                (ft_verify(ft_readfile(argv[i]), trc, 0));
             close(fd);
         }
     }
     else
-        ft_verify(ft_readsdin(), 0, 0, 1);
+        ft_verify(ft_readsdin(), trc, 0);
     return (0);
 }

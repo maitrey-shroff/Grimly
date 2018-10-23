@@ -134,8 +134,8 @@ NAME = grimly
 CFLAGS = -Wall -Werror -Wextra
 RM = /bin/rm -rf
 HEADER = grimly.h
-CFILES = ./grimly.c ./grimly2.c ./verification.c
-OFILES = ./grimly.o ./grimly2.o ./verification.o
+CFILES = ./grimly.c ./grimly2.c ./verification.c ./maze.c
+OFILES = ./grimly.o ./grimly2.o ./verification.o ./maze.o
 
 all: $(NAME)
 

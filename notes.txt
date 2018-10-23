@@ -1,1 +1,3 @@
 Opening and reading files, rd_only and other options
+
+system call read and write

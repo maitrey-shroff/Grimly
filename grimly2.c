@@ -13,16 +13,14 @@
 
 #include "libft/libft.h"
 #include "grimly.h"
-#include <stdio.h>
-
 /*
-**  HEADER: full, empty, path, enter, exit
+**  header[] = full, empty, path, enter, exit
 */
-char        *setheader(t_puzzle **pz, char *buf, int *counter)
+char        *ft_setheader(t_maze **pz, char *buf)
 {
     int     i;
     int     j;
-    char    *rows;
+    char    *descrRow;
 
     i = -1;
     j = 1;
@@ -30,22 +28,38 @@ char        *setheader(t_puzzle **pz, char *buf, int *counter)
         j++;
     while (++i < 5)
         (*pz)->header[4 - i] = buf[j - i - 1];
-    if (!(rows = (char *)malloc(sizeof(*rows) * (j + 1))))
+    if (!(descrRow = (char *)malloc(sizeof(*descrRow) * (j + 1))))
         return (NULL);
     i = -1;
     while (++i <=  j)
-    {
-        rows[i] = *buf++;
-        (*counter)++;
-    }
-    rows[j] = '\0';
-    (*pz)->rows = ft_atoi(rows);
-    free(rows);
-    return (buf);
+        descrRow[i] = *buf++;
+    descrRow[j] = '\0';
+    (*pz)->rows = ft_atoi(descrRow);
+    (*pz)->cols = ft_setcols(descrRow, j);
+    (*pz)->exCount = 0;
+    free(descrRow);
+    printf("%s", buf);
+    return (&*buf);
 }
 
-int         showerror(void)
+/*
+**  returns cols for t_maze header
+*/
+int         ft_setcols(char *topline, int len)
 {
+    topline[len - 5] = '\0';
+    while (*topline && *topline != 'x')
+        topline++;
+    return (!*topline ? (ft_showerror(NULL)) : (ft_atoi(&topline[1])));
+}
+
+/*
+**  displays an error and returns 0 for invalid map
+*/
+int         ft_showerror(char *str)
+{
+    if (str)
+        free(str);
     ft_putstr("MAP ERROR\n");
     return (0);
 }
