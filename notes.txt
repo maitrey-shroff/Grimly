@@ -1,0 +1,1 @@
+Opening and reading files, rd_only and other options
